@@ -52,6 +52,21 @@ pip install Flask scikit-learn pyserial
 
 手機連這個熱點時通常無法同時使用行動網路；網頁與資料由 M5StickC Plus 本機提供。揮臂資料會先存入裝置 Flash，M5StickC Plus 可拔離電腦後繼續記錄。手機頁面顯示即時次數、平均、CV%、角速度趨勢與近期紀錄；電腦版的完整 K-Means 分群和線性疲勞分析仍需接回電腦處理。
 
+## 讓其他人安裝到自己的 M5StickC Plus
+
+1. 在 GitHub 將 repository 設為 **Public**，或到 **Settings → Collaborators** 邀請指定 GitHub 帳號。Private repository 的程式只有獲授權的使用者看得到。
+2. 對方安裝 Git，並複製專案：
+
+	```powershell
+	git clone https://github.com/apple15165465/volleyballproject.git
+	```
+
+3. 用 Arduino IDE 開啟複製資料夾中的 `volleyball_m5stack.ino`。在 Boards Manager 安裝 ESP32 支援，在 Library Manager 安裝 **M5Unified** 與 **ArduinoJson**。
+4. 燒錄前，請對方在 `volleyball_m5stack.ino` 修改 `AP_SSID` 和 `AP_PASSWORD`，設定自己的熱點名稱與密碼。不要沿用公開範例密碼；至少使用 8 個字元的個人密碼。再選 **M5StickC Plus** 板卡和對應的 USB 序列埠，按 Upload。
+5. 燒錄後用手機連上對方自己設定的熱點，瀏覽 `http://192.168.4.1`。手機若提示沒有網際網路，選擇保持連線。
+
+每台裝置都應使用不同的熱點密碼。熱點密碼會編譯進韌體，因此不要把個人密碼提交或推送到公開 GitHub；若密碼曾經提交，請更換密碼並重新燒錄。
+
 若要匯入電腦版 Flask 分析：
 
 1. 先在手機頁面按「匯出 CSV」保存副本。
